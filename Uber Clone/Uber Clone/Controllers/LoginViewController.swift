@@ -127,6 +127,7 @@ class LoginViewController: UIViewController {
     @objc private func tapToSignIn(){
         guard let email = emailTextfield.text , !email.isEmpty,
               let password = passwordTextfield.text , !password.isEmpty else {
+            signInErrorAlert(title: "Sign in error", message: "Please enter your email and password.")
             return
         }
         
@@ -140,7 +141,7 @@ class LoginViewController: UIViewController {
                     self?.present(navVC, animated: true)
                 }
             }else{
-                print("account error")
+                self?.signInErrorAlert(title: "Sign in error", message: "Please checked email and password again.")
             }
         }
     }
@@ -212,3 +213,14 @@ extension LoginViewController{
     }
 }
 
+//pop sign in error alert
+extension LoginViewController{
+    
+    private func signInErrorAlert(title:String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+        
+    }
+    
+}

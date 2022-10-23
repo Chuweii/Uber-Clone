@@ -20,6 +20,10 @@ class MapViewController: UIViewController {
         
         view.backgroundColor = .secondarySystemBackground
         title = "Uber"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .done, target: self, action: #selector(tapToSignOut))
+        navigationController?.navigationBar.tintColor = .white
+        
         view.addSubview(mapView)
         
         
@@ -40,7 +44,21 @@ class MapViewController: UIViewController {
         panel.set(contentViewController: searchVC)
         panel.addPanel(toParent: self)
     }
-
+    
+    @objc func tapToSignOut(){
+        AuthManager.shared.signOut { [weak self] success in
+            guard let self = self else{ return }
+            
+            if success{
+                DispatchQueue.main.async {
+                    let vc = LoginViewController()
+                    let navVC = UINavigationController(rootViewController: vc)
+                    navVC.modalPresentationStyle = .fullScreen
+                    self.present(navVC, animated: true)
+                }
+            }
+        }
+    }
 }
 
 //SearchViewDelegate 傳遞位置資訊

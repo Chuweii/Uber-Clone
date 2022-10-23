@@ -61,7 +61,15 @@ class SearchViewController: UIViewController {
         
         textField.delegate = self
         
+        //點擊空白處讓鍵盤消失
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+//                self.view.addGestureRecognizer(tap)
     }
+    
+//    @objc func dismissKeyBoard() {
+//            self.view.endEditing(true)
+//        }
+    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

@@ -17,11 +17,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         
-        let vc = LoginViewController()
-//        let navVC = UINavigationController(rootViewController: vc)
+        let vc:UIViewController
+        if AuthManager.shared.isSignedIn {
+            let navVC = UINavigationController(rootViewController: MapViewController())
+            navVC.navigationBar.prefersLargeTitles = true
+            
+            vc = navVC
+            
+        }else{
+            let signInVC = LoginViewController()
+            signInVC.navigationItem.largeTitleDisplayMode = .always
+            let navVC = UINavigationController(rootViewController:signInVC )
+            navVC.navigationBar.prefersLargeTitles = true
+            vc = navVC
+        }
         
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: vc)
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
 

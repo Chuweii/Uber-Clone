@@ -161,6 +161,7 @@ extension SignUpViewController{
         guard let email = emailTextfield.text, !email.isEmpty,
               let password = passwordTextfield.text, !password.isEmpty,
               let name = nameTextfield.text, !name.isEmpty else {
+            signUpErrorAlert(title: "Sign up error", message: "Please enter your email and password.")
             return
         }
         
@@ -180,10 +181,19 @@ extension SignUpViewController{
                 }
                 
             }else{
-                print("Failed to create account")
+                self?.signUpErrorAlert(title: "Sign up error", message: "Please checked email and password adain.")
             }
         }
         
     }
+    
+    //pop sign up error alert
+    private func signUpErrorAlert(title:String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+        
+    }
+
     
 }
